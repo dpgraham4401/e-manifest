@@ -1,9 +1,12 @@
 package gov.epa.rcra.rest.manifest;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Service
 public class ManifestService {
@@ -19,13 +22,16 @@ public class ManifestService {
     }
 
     public String createPaperManifest(MultipartFile file, String data) throws ManifestException {
+        byte[] fileBytes;
+        try {
+            fileBytes = file.getBytes();
+        } catch (IOException e) {
+            throw new ManifestException(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-        body.add("attachment", file);
+        body.add("attachment", fileBytes);
         body.add("manifest", data);
 
-        System.out.println("ManifestService.createPaperManifest: " + body);
-        return "Yes";
-
-//        return manifestClient.createPaperManifest(body);
+        return manifestClient.createPaperManifest(body);
     }
 }

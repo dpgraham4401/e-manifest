@@ -3,6 +3,7 @@ package gov.epa.rcra.rest.auth;
 import gov.epa.rcra.rest.client.RcraClientConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
@@ -39,6 +40,7 @@ public class AuthClient {
         }
         tokenExpiration = data.expiration();
         return client.mutate()
+                .messageConverters(converters -> converters.add(new ByteArrayHttpMessageConverter()))
                 .defaultHeader("Authorization", "Bearer " + data.token()).build();
     }
 }
