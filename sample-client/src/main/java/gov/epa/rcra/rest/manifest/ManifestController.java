@@ -7,10 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/manifest")
@@ -33,10 +29,8 @@ public class ManifestController {
         if (file.isEmpty()) {
             return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
         }
-        Path destination =
-                Paths.get("local").resolve(Objects.requireNonNull(file.getOriginalFilename())).normalize().toAbsolutePath();
-        Files.copy(file.getInputStream(), destination);
-        return new ResponseEntity<>("Created", HttpStatus.CREATED);
+        String result = manifestService.createPaperManifest(file, data);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @ExceptionHandler(ManifestException.class)
