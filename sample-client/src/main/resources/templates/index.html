@@ -103,7 +103,34 @@
             </button>
         </div>
     </div>
-
+    <div class="my-3">
+        <h2>Save Manifest</h2>
+        <form action="javascript:executeService('savePaperManifest')">
+            <div class="row d-flex align-items-end mb-3">
+                <div class="col-6">
+                    <label for="saveManifestAttachment">Manifest Attachment</label>
+                    <input class="form-control" id="saveManifestAttachment" required type="file"/>
+                </div>
+                <div class="col-6">
+                    <label for="saveManifestData">Manifest Data</label>
+                    <input class="form-control" id="saveManifestData" required type="text"/>
+                </div>
+            </div>
+            <div class="row d-flex align-items-end">
+                <div class="col-3">
+                    <button class="btn btn-primary" type="submit">Save Manifest</button>
+                </div>
+            </div>
+        </form>
+        <div class="position-relative">
+            <textarea aria-label="Site Service output" class="form-control" id="saveManifestOutput" readonly
+                      style="width: 100%; height: 200px;"></textarea>
+            <button class="position-absolute btn btn-secondary top-0 end-0 m-2" id="saveManifestCopyButton"
+                    onclick="copyToClipboard('saveManifestOutput')"
+            >Copy
+            </button>
+        </div>
+    </div>
 </div>
 <div class="toast-container position-fixed bottom-0 end-0 m-3">
     <div aria-atomic="true" aria-live="assertive" class="toast" data-bs-delay="2000" id="liveToast" role="alert">
@@ -146,6 +173,13 @@
                 return {
                     service: ApiClient.fetchManifestData(manifestTrackingNumber),
                     outputElement: 'getManifestOutput'
+                };
+            case 'savePaperManifest':
+                const attachment = document.getElementById('saveManifestAttachment').value;
+                const data = document.getElementById('saveManifestData').value;
+                return {
+                    service: ApiClient.savePaperManifest(manifestTrackingNumber),
+                    outputElement: 'saveManifestOutput'
                 };
             default:
                 alert('There was an error, unrecognized service invoked');
