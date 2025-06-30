@@ -193,30 +193,113 @@
                   "description": "max length 80",
                   "type": "string"
                 },
+                "foreignId": {
+                  "description": "Foreign id",
+                  "type": "string"
+                },
                 "address": {
                   "description": "max length 50",
                   "type": "string"
                 },
+                "address2": {
+                  "description": "max length 50",
+                  "type": "string"
+                },
+                "address3": {
+                  "description": "max length 50",
+                  "type": "string"
+                },
                 "city": {
-                  "description": "max length 25",
+                  "description": "max length 50",
                   "type": "string"
                 },
                 "country": {
                   "$ref": "#/definitions/Locality"
                 },
-                "postalCode": {
+                "postalCode":  {
                   "description": "max length 25",
                   "type": "string"
                 },
                 "province": {
                   "description": "max length 50",
                   "type": "string"
+                },
+                "contact": {
+                  "$ref": "#/definitions/Contact"
                 }
               },
               "additionalProperties": false
             },
             "portOfEntry": {
-              "$ref": "#/definitions/PortOfEntry"
+              "$ref": "#/definitions/Port"
+            }
+          },
+          "additionalProperties": false
+        },
+        "export": {
+          "description": "Export indicator.",
+          "type": "boolean"
+        },
+        "exportInfo": {
+          "description": "Contains Export related information",
+          "type": "object",
+          "properties": {
+            "exporter": {
+              "$ref": "#/definitions/ManifestHandlerSite"
+            },
+            "exportTsdf": {
+              "description": "The TSDF in the foreign country",
+              "type": "object",
+              "properties": {
+                "name": {
+                  "description": "max length 80",
+                  "type": "string"
+                },
+                "foreignId": {
+                  "description": "Foreign id",
+                  "type": "string"
+                },
+                "address1": {
+                  "description": "max length 50",
+                  "type": "string"
+                },
+                "address2": {
+                  "description": "max length 50",
+                  "type": "string"
+                },
+                "address3": {
+                  "description": "max length 50",
+                  "type": "string"
+                },
+                "city": {
+                  "description": "max length 50",
+                  "type": "string"
+                },
+                "country": {
+                  "$ref": "#/definitions/Locality"
+                },
+                "postalCode":  {
+                  "description": "max length 25",
+                  "type": "string"
+                },
+                "province": {
+                  "description": "max length 50",
+                  "type": "string"
+                },
+                "contact": {
+                  "$ref": "#/definitions/Contact"
+                }
+              },
+              "additionalProperties": false
+            },
+            "finalTransporterPaperSignature": {
+              "$ref": "#/definitions/PaperSignature"
+            },
+            "finalTransporterElectronicSignature": {
+              "$ref": "#/definitions/ElectronicSignature"
+            },
+            "portOfExit": {
+              "$ref": "#/definitions/Port"
             }
           },
           "additionalProperties": false
@@ -997,8 +1080,8 @@
       },
       "additionalProperties": false
     },
-    "PortOfEntry": {
-      "description": "Contains Port of entry State code and City or City name plus Port or Airport name separated by comma.",
+    "Port": {
+      "description": "Contains Port of entry or exit State code and City or City name plus Port or Airport name separated by comma.",
       "type": "object",
       "properties": {
         "state": {
@@ -1226,6 +1309,75 @@
         "mtnDiscrepancyCorrection": {
           "description": "User provided field to indicate if PDF change is for MTN discrepancy correction or other reason. 'true' shall be provided if the user changes pdf for MTN discrepancy correction, 'false' shall be provided if the user changes pdf for any other reason ",
           "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "export": {
+      "description": "Export indicator.",
+      "type": "boolean"
+    },
+    "exportInfo": {
+      "description": "Contains Export related information",
+      "type": "object",
+      "properties": {
+        "exporter": {
+          "$ref": "#/definitions/ManifestHandlerSite"
+        },
+        "exportTsdf": {
+          "description": "The TSDF in the foreign country",
+          "type": "object",
+          "properties": {
+            "name": {
+              "description": "max length 80",
+              "type": "string"
+            },
+            "foreignId": {
+              "description": "Foreign id",
+              "type": "string"
+            },
+            "address1": {
+              "description": "max length 50",
+              "type": "string"
+            },
+            "address2": {
+              "description": "max length 50",
+              "type": "string"
+            },
+            "address3": {
+              "description": "max length 50",
+              "type": "string"
+            },
+            "city": {
+              "description": "max length 50",
+              "type": "string"
+            },
+            "country": {
+              "$ref": "#/definitions/Locality"
+            },
+            "postalCode":  {
+              "description": "max length 25",
+              "type": "string"
+            },
+            "province": {
+              "description": "max length 50",
+              "type": "string"
+            },
+            "contact": {
+              "$ref": "#/definitions/Contact"
+            },
+            "additionalProperties": false
+          },
+          "finalTransporterPaperSignature": {
+            "$ref": "#/definitions/PaperSignature"
+          },
+          "finalTransporterElectronicSignature": {
+            "$ref": "#/definitions/ElectronicSignature"
+          },
+          "portOfExit": {
+            "$ref": "#/definitions/PortOfEntry"
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
