@@ -76,8 +76,6 @@ will be posting additional documents as well as issues that we want user feedbac
 
 ## Contact Information
 
-Additional Questions: [email emanifest@epa.gov](mailto:emanifest@epa.gov)
-
 **Join the conversation and keep up on the latest e-Manifest news**
 
 - Attend the
