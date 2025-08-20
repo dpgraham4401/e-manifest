@@ -5,6 +5,11 @@ from .client import (
     RcrainfoResponse,
     new_client,
 )
+from .async_client import (
+    AsyncRcrainfoClient,
+    AsyncRcrainfoResponse,
+    new_async_client,
+)
 from .types import (
     AdditionalInfo,
     BillStatus,
@@ -38,6 +43,9 @@ __all__ = [
     "RcrainfoClient",
     "RcrainfoResponse",
     "new_client",
+    "AsyncRcrainfoClient",
+    "AsyncRcrainfoResponse",
+    "new_async_client",
     "AdditionalInfo",
     "BillStatus",
     "BrInfo",
