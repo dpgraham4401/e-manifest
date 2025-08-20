@@ -18,7 +18,11 @@ import aiohttp
 
 from .types import (
     Manifest,
+    ManifestExistsResponse,
+    PortOfEntry,
+    RcraCodeDescription,
     RcraSite,
+    SiteExistsResponse,
 )
 
 RCRAINFO_PROD = "https://rcrainfo.epa.gov/rcrainfoprod/rest/api/"
@@ -346,6 +350,154 @@ class AsyncRcrainfoClient:
         )
         return await self.__rcra_request("GET", endpoint)
 
+    async def get_id_by_ship_name(self, ship_name: str) -> AsyncRcrainfoResponse[List[str]]:
+        """
+        Retrieve DOT ID number by DOT Proper Shipping name
+
+        Args:
+            ship_name (str): DOT proper shipping name. Case-sensitive (e.g. Hydrochloric acid)
+        """
+        endpoint = f"{self.base_url}v1/emanifest/lookup/id-numbers-by-shipping-name/{ship_name}"
+        return await self.__rcra_request("GET", endpoint)
+
+    async def get_ship_name_by_id(self, id_num: str) -> AsyncRcrainfoResponse[List[str]]:
+        """
+        Retrieve DOT Proper Shipping name by DOT ID number
+
+        Args:
+            id_num (str): DOT ID number
+        """
+        endpoint = (
+            f"{self.base_url}v1/emanifest/lookup/proper-shipping-names-by-id-number/{id_num}"
+        )
+        return await self.__rcra_request("GET", endpoint)
+
+    async def get_mtn_suffix(self) -> AsyncRcrainfoResponse[List[RcraCodeDescription]]:
+        """Retrieve Allowable Manifest Tracking Number (MTN) Suffixes"""
+        endpoint = f"{self.base_url}v1/emanifest/lookup/printed-tracking-number-suffixes"
+        return await self.__rcra_request("GET", endpoint)
+
+    async def get_container_types(self) -> AsyncRcrainfoResponse:
+        """Retrieve Container Types"""
+        endpoint = f"{self.base_url}v1/emanifest/lookup/container-types"
+        return await self.__rcra_request("GET", endpoint)
+
+    async def get_quantity_uom(self) -> AsyncRcrainfoResponse[List[RcraCodeDescription]]:
+        """
+        Retrieve Quantity Units of Measure (UOM)
+        """
+        endpoint = f"{self.base_url}v1/emanifest/lookup/quantity-uom"
+        return await self.__rcra_request("GET", endpoint)
+
+    async def get_load_types(self) -> AsyncRcrainfoResponse[List[RcraCodeDescription]]:
+        """Retrieve PCB Load Types"""
+        endpoint = f"{self.base_url}v1/emanifest/lookup/load-types"
+        return await self.__rcra_request("GET", endpoint)
+
+    async def get_shipping_names(self) -> AsyncRcrainfoResponse[List[str]]:
+        """
+        Retrieve DOT Proper Shipping Names
+
+        Returns:
+            dict: object with DOT Proper Shipping names
+        """
+        endpoint = f"{self.base_url}v1/emanifest/lookup/proper-shipping-names"
+        return await self.__rcra_request("GET", endpoint)
+
+    async def get_id_numbers(self) -> AsyncRcrainfoResponse[List[str]]:
+        """Retrieve DOT Shipping ID numbers"""
+        endpoint = f"{self.base_url}v1/emanifest/lookup/id-numbers"
+        return await self.__rcra_request("GET", endpoint)
+
+    async def get_density_uom(self) -> AsyncRcrainfoResponse[List[RcraCodeDescription]]:
+        """Retrieve Density Units of Measure (UOM)"""
+        endpoint = f"{self.base_url}v1/lookup/density-uom"
+        return await self.__rcra_request("GET", endpoint)
+
+    async def get_form_codes(self) -> AsyncRcrainfoResponse[list[RcraCodeDescription]]:
+        """Retrieve Form Codes"""
+        endpoint = f"{self.base_url}v1/lookup/form-codes"
+        return await self.__rcra_request("GET", endpoint)
+
+    async def get_source_codes(self) -> AsyncRcrainfoResponse[List[RcraCodeDescription]]:
+        """Retrieve Source Codes"""
+        endpoint = f"{self.base_url}v1/lookup/source-codes"
+        return await self.__rcra_request("GET", endpoint)
+
+    async def get_state_waste_codes(
+        self, state_code: str
+    ) -> AsyncRcrainfoResponse[List[RcraCodeDescription]]:
+        """
+        Retrieve State Waste Codes for a given state (besides Texas)
+
+        Args:
+            state_code: (str) Two-letter state code (e.g., CA, MA)
+        """
+        endpoint = f"{self.base_url}v1/lookup/state-waste-codes/{state_code}"
+        return await self.__rcra_request("GET", endpoint)
+
+    async def get_fed_waste_codes(self) -> AsyncRcrainfoResponse[List[RcraCodeDescription]]:
+        """Retrieve Federal Waste Codes"""
+        endpoint = f"{self.base_url}v1/lookup/federal-waste-codes"
+        return await self.__rcra_request("GET", endpoint)
+
+    async def get_man_method_codes(self) -> AsyncRcrainfoResponse[List[RcraCodeDescription]]:
+        """Retrieve Management Method Codes"""
+        endpoint = f"{self.base_url}v1/lookup/management-method-codes"
+        return await self.__rcra_request("GET", endpoint)
+
+    async def get_waste_min_codes(self) -> AsyncRcrainfoResponse[List[RcraCodeDescription]]:
+        """Retrieve Waste Minimization Codes"""
+        endpoint = f"{self.base_url}v1/lookup/waste-minimization-codes"
+        return await self.__rcra_request("GET", endpoint)
+
+    async def get_entry_ports(self) -> AsyncRcrainfoResponse[List[PortOfEntry]]:
+        """Retrieve Ports of Entry"""
+        endpoint = f"{self.base_url}v1/lookup/ports-of-entry"
+        return await self.__rcra_request("GET", endpoint)
+
+    async def check_site_exists(self, site_id: str) -> AsyncRcrainfoResponse[SiteExistsResponse]:
+        """
+        Check if provided Site ID exists
+
+        Args:
+            site_id (str): EPA site ID
+        """
+        endpoint = f"{self.base_url}v1/site-exists/{site_id}"
+        return await self.__rcra_request("GET", endpoint)
+
+    async def check_mtn_exists(self, mtn: str) -> AsyncRcrainfoResponse[ManifestExistsResponse]:
+        """Check if Manifest Tracking Number (MTN) exists and return basic details"""
+        endpoint = f"{self.base_url}v1/emanifest/manifest/mtn-exists/{mtn}"
+        return await self.__rcra_request("GET", endpoint)
+
+    async def get_sites(
+        self, state_code: str, site_type: str, reg: bool = False
+    ) -> AsyncRcrainfoResponse[List[str]]:
+        """
+        Retrieve site ids for provided criteria
+
+        Args:
+            state_code (str): Two-letter US postal state code
+            site_type (str): Site type (Generator, Tsdf, Transporter, Broker). Case-sensitive
+            reg (bool): use endpoint for regulators, defaults to False
+        """
+        if reg:
+            endpoint = f"{self.base_url}v1/state/emanifest/site-ids/{state_code}/{site_type}"
+        else:
+            endpoint = f"{self.base_url}v1/emanifest/site-ids/{state_code}/{site_type}"
+        return await self.__rcra_request("GET", endpoint)
+
+    async def get_site_mtn(
+        self, site_id: str, reg: bool = False
+    ) -> AsyncRcrainfoResponse[List[str]]:
+        """Retrieve manifest tracking numbers for a given Site ID"""
+        if reg:
+            endpoint = f"{self.base_url}v1/state/emanifest/manifest-tracking-numbers/{site_id}"
+        else:
+            endpoint = f"{self.base_url}v1/emanifest/manifest-tracking-numbers/{site_id}"
+        return await self.__rcra_request("GET", endpoint)
+
     async def get_manifest(self, mtn: str, reg: bool = False) -> AsyncRcrainfoResponse[Manifest]:
         """Retrieve e-Manifest details by Manifest Tracking Number (MTN)"""
         if reg:
@@ -353,8 +505,6 @@ class AsyncRcrainfoClient:
         else:
             endpoint = f"{self.base_url}v1/emanifest/manifest/{mtn}"
         return await self.__rcra_request("GET", endpoint)
-
-    # Add more methods as needed - for now implementing core ones for testing
 
 
 def _parse_url(base_url: str | None) -> str:

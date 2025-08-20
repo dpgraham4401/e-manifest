@@ -1,4 +1,5 @@
 import pytest
+from aioresponses import aioresponses
 
 from . import RCRAINFO_PREPROD, AsyncRcrainfoClient, new_async_client
 
@@ -91,3 +92,67 @@ class TestAsyncNewClientConstructor:
 
         assert client_auto.auto_renew is True
         assert client_manual.auto_renew is False
+
+    @pytest.mark.asyncio
+    async def test_authentication_flow(self):
+        """Test the authentication flow with mocked responses"""
+        with aioresponses() as m:
+            # Mock the authentication endpoint
+            auth_url = f"{RCRAINFO_PREPROD}v1/auth/{MOCK_API_ID}/{MOCK_API_KEY}"
+            m.get(auth_url, payload={
+                "token": "mock_token_12345",
+                "expiration": "2053-08-04T22:24:42.724+00:00"
+            })
+
+            async with new_async_client(
+                "preprod", api_id=MOCK_API_ID, api_key=MOCK_API_KEY
+            ) as client:
+                await client.authenticate()
+                assert client.token == "mock_token_12345"
+                assert client.is_authenticated
+
+    @pytest.mark.asyncio
+    async def test_get_site_request(self):
+        """Test making a GET request to get site details"""
+        with aioresponses() as m:
+            # Mock the site details endpoint
+            site_url = f"{RCRAINFO_PREPROD}v1/site-details/{MOCK_GEN_ID}"
+            m.get(site_url, payload={
+                "epaSiteId": MOCK_GEN_ID,
+                "siteName": "Test Generator Site"
+            })
+
+            async with new_async_client("preprod") as client:
+                response = await client.get_site(MOCK_GEN_ID)
+                assert response.ok
+                assert response.status_code == 200
+                data = await response.json()
+                assert data["epaSiteId"] == MOCK_GEN_ID
+
+    @pytest.mark.asyncio
+    async def test_get_hazard_classes_request(self):
+        """Test getting hazard classes"""
+        with aioresponses() as m:
+            # Mock the hazard classes endpoint
+            hazard_url = f"{RCRAINFO_PREPROD}v1/emanifest/lookup/hazard-classes"
+            m.get(hazard_url, payload=["Class 1", "Class 2", "Class 3"])
+
+            async with new_async_client("preprod") as client:
+                response = await client.get_hazard_classes()
+                assert response.ok
+                data = await response.json()
+                assert len(data) == 3
+                assert "Class 1" in data
+
+    @pytest.mark.asyncio
+    async def test_error_handling(self):
+        """Test error handling for failed requests"""
+        with aioresponses() as m:
+            # Mock a 404 response
+            site_url = f"{RCRAINFO_PREPROD}v1/site-details/INVALID"
+            m.get(site_url, status=404, payload={"error": "Site not found"})
+
+            async with new_async_client("preprod") as client:
+                response = await client.get_site("INVALID")
+                assert not response.ok
+                assert response.status_code == 404
