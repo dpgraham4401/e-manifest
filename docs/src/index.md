@@ -3,7 +3,7 @@
 June 30, 2018, the United States Environmental Protection Agency (USEPA or EPA) launched a national system for tracking
 hazardous waste shipments electronically, this system, known as "e-Manifest," modernizes the nation’s paper-intensive
 process for tracking hazardous waste from cradle to grave while saving valuable time, resources, and dollars for
-industry and states.
+industry and states. 
 
 e-Manifest is a component of EPA's [Resource Conservation and Recovery Act (RCRA)](https://www.epa.gov/rcra) information
 system, called RCRAInfo.
