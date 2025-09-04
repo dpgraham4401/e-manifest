@@ -1,0 +1,40 @@
+site_name: e-Manifest Services
+site_url: https://usepa.github.io/e-manifest/
+
+theme:
+  name: material
+  palette:
+
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+  logo: assets/img/favicon-128x128.png
+  favicon: assets/img/favicon-128x128.png
+
+  features:
+    - search.highlight
+    - search.suggest
+    - search.share
+
+extra_css:
+  - assets/css/epa.css
+
+plugins:
+  - search
