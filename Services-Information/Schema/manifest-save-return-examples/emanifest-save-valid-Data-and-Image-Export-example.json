@@ -176,6 +176,7 @@
 				]
 			},
 			"additionalInfo": {
+				"consentNumber": "028103E21001",
 				"comments": [
 				]
 			},
@@ -227,6 +228,7 @@
 				]
 			},
 			"additionalInfo": {
+				"consentNumber": "028103E21001",
 				"comments": [
 				]
 			},
@@ -241,170 +243,6 @@
 			"managementMethod": {
 				"code": "H040",
 				"description": "INCINERATION"
-			},
-			"pcb": false
-		},
-		{
-			"dotHazardous": false,
-			"epaWaste": false, 
-			"wasteDescription": "Misc. Office Trash",
-			"quantity": {
-				"containerNumber": 43,
-				"containerType": {
-					"code": "CF",
-					"description": "Fiber or plastic boxes, cartons, cases"
-				},
-				"quantity": 345,
-				"unitOfMeasurement": {
-					"code": "P",
-					"description": "Pounds"
-				}
-			},
-			"hazardousWaste": {
-				"federalWasteCodes": [
-				],
-				"tsdfStateWasteCodes": [
-				],
-				"generatorStateWasteCodes": [
-				]
-			},
-			"additionalInfo": {
-				"comments": [
-				]
-			},
-			"discrepancyResidueInfo": {
-				"wasteQuantity": false,
-				"wasteType": false,
-				"residue": false
-			},
-			"lineNumber": 4,
-			"br": false,
-			"managementMethod": {
-				"code": "H132",
-				"description": "LANDFILL (WITH PRIOR TREATMENT AND/OR STABILIZATION)"
-			},
-			"pcb": false
-		},
-		{
-			"dotHazardous": true,
-			"epaWaste": true,
-			"dotInformation": {
-				"idNumber": {
-					"code": "NA1993"
-				},
-				"printedDotInformation": "NA1993, Waste Diesel fuel, 3, III"
-			},
-			"quantity": {
-				"containerNumber": 1,
-				"containerType": {
-					"code": "DM",
-					"description": "Metal drums, barrels, kegs"
-				},
-				"quantity": 55,
-				"unitOfMeasurement": {
-					"code": "G",
-					"description": "Gallons"
-				}
-			},
-			"hazardousWaste": {
-				"federalWasteCodes": [
-					{
-						"code": "D001",
-						"description": "IGNITABLE WASTE"
-					}
-				],
-				"tsdfStateWasteCodes": [
-				],
-				"generatorStateWasteCodes": [
-				]
-			},
-			"additionalInfo": {
-				"comments": [
-					{
-						"label": "Container Size",
-						"description": "DM55",
-						"handlerId": "VAD000532119"
-					}
-				]
-			},
-			"discrepancyResidueInfo": {
-				"wasteQuantity": false,
-				"wasteType": false,
-				"residue": false
-			},
-			"lineNumber": 5,
-			"br": false,
-			"managementMethod": {
-				"code": "H039",
-				"description": "OTHER RECOVERY OR RECLAMATION FOR REUSE"
-			},
-			"pcb": false
-		},
-		{
-			"dotHazardous": true,
-			"epaWaste":true,
-			"dotInformation": {
-				"idNumber": {
-					"code": "UN3210"
-				},
-				"printedDotInformation": "UN3210, Waste Chlorates, inorganic, aqueous solution, n.o.s, 5.1, II"
-			},
-			"quantity": {
-				"containerNumber": 12,
-				"containerType": {
-					"code": "CM",
-					"description": "Metal boxes, cartons, cases (including roll offs)"
-				},
-				"quantity": 43,
-				"unitOfMeasurement": {
-					"code": "G",
-					"description": "Gallons"
-				}
-			},
-			"hazardousWaste": {
-				"federalWasteCodes": [
-					{
-						"code": "D003",
-						"description": "REACTIVE WASTE"
-					}
-				],
-				"tsdfStateWasteCodes": [
-				],
-				"generatorStateWasteCodes": [
-				]
-			},
-			"additionalInfo": {
-				"comments": [
-				]
-			},
-			"discrepancyResidueInfo": {
-				"wasteQuantity": false,
-				"wasteType": false,
-				"residue": false
-			},
-			"lineNumber": 6,
-			"br": true,
-			"brInfo": {
-				"densityUnitOfMeasurement": {
-					"code": "1",
-					"description": "lbs/gal"
-				},
-				"formCode": {
-					"code": "W103",
-					"description": "SPENT CONCENTRATED ACID"
-				},
-				"sourceCode": {
-					"code": "G05",
-					"description": "METAL FORMING AND TREATMENT"
-				},
-				"wasteMinimizationCode":{
-						"code": "A"
-				},
-				"density": 123
-			},
-			"managementMethod": {
-				"code": "H039",
-				"description": "OTHER RECOVERY OR RECLAMATION FOR REUSE"
 			},
 			"pcb": false
 		}
