@@ -1,2 +1,0 @@
-requests~=2.*
-requests-toolbelt==1.0.0
