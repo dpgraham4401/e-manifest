@@ -1,3 +1,8 @@
+from .async_client import (
+    AsyncRcrainfoClient,
+    AsyncRcrainfoResponse,
+    new_async_client,
+)
 from .client import (
     RCRAINFO_PREPROD,
     RCRAINFO_PROD,
@@ -38,6 +43,9 @@ __all__ = [
     "RcrainfoClient",
     "RcrainfoResponse",
     "new_client",
+    "AsyncRcrainfoClient",
+    "AsyncRcrainfoResponse",
+    "new_async_client",
     "AdditionalInfo",
     "BillStatus",
     "BrInfo",
